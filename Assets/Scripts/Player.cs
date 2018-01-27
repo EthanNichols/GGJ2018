@@ -15,11 +15,15 @@ public class Player : MonoBehaviour {
     private float recoverReset;
 
     [HideInInspector]
+    public int wins;
+    public int kills;
+
     public int playerNum;
     public bool dead = false;
     private float rotationAmount = 0;
 
     private GameObject cameraObj;
+    private Vector3 cameraDefLocalPos;
     private List<GameObject> extraCameras = new List<GameObject>();
 
     //Whether the player is punching ornot
@@ -37,6 +41,7 @@ public class Player : MonoBehaviour {
         animator = GetComponent<Animator>();
 
         cameraObj = transform.Find("Camera").gameObject;
+        cameraDefLocalPos = cameraObj.transform.localPosition;
 	}
 	
 	// Update is called once per frame
@@ -61,7 +66,7 @@ public class Player : MonoBehaviour {
         }
 
         cameraObj.transform.SetParent(obj.transform);
-        cameraObj.transform.localPosition = Vector3.zero;
+        cameraObj.transform.localPosition = cameraDefLocalPos;
         cameraObj.transform.localRotation = Quaternion.identity;
 
         obj.GetComponent<Player>().extraCameras = extraCameras;
@@ -190,6 +195,9 @@ public class Player : MonoBehaviour {
         //If the player that hit you is punching teleport you down
         if (col.gameObject.GetComponent<Player>().punching)
         {
+            //Increase the amount of kills the player has
+            col.gameObject.GetComponent<Player>().kills++;
+
             transform.position += Vector3.down * 10;
             ResetCamera(col.gameObject);
             dead = true;

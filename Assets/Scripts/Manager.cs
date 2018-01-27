@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
+    public int winsNeeded = 3;
     public GameObject player;
 
-    public List<GameObject> players;
     public float mapSize;
+
+    [HideInInspector]
+    public List<GameObject> players;
 
     public bool gameOver = false;
 
+    private GameObject winner;
     private GameStateManager stateManager;
 
     // Use this for initialization
@@ -36,6 +40,15 @@ public class Manager : MonoBehaviour
         //If the new state is the game, and the game is over, respawn players and state a new round
         if (gameOver && stateManager.newState == GameStateManager.GameState.game)
         {
+            //Increase the amount of wins the player has
+            winner.GetComponent<Player>().wins++;
+
+            //If the winning player won enough, end the game
+            if (winner.GetComponent<Player>().wins >= winsNeeded)
+            {
+                stateManager.newState = GameStateManager.GameState.mainMenu;
+            }
+
             RespawnPlayers();
             gameOver = false;
         }
@@ -45,15 +58,21 @@ public class Manager : MonoBehaviour
     {
         //The amount of players alive
         int aliveCount = 0;
+        winner = null;
 
         //Add each player that is alive to the count
         foreach (GameObject playerObj in players)
         {
-            if (!playerObj.GetComponent<Player>().dead) { aliveCount++; }
+            if (!playerObj.GetComponent<Player>().dead) {
+                aliveCount++;
+                winner = playerObj;
+            }
         }
 
         //If there is one or less players left end the game
-        if (aliveCount <= 1) { gameOver = true; }
+        if (aliveCount <= 1) {
+            gameOver = true;
+        }
     }
 
     private void RespawnPlayers()

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
 
     //Rotation and punch speed
     public float rotationSpeed = 50f;
@@ -33,13 +34,18 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private bool blocking = false;
 
+    public GameObject[] bookPrefabs;
+    public Transform[] wrists;
 
+    private bool initBooks = false;
 
+    private Renderer[] renderers;
     //Animations
     Animator animator;
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake()
+    {
         //Set the reset timers
         animationReset = animationTime;
         recoverReset = recoverTime;
@@ -47,23 +53,27 @@ public class Player : MonoBehaviour {
 
         cameraObj = transform.Find("Camera").gameObject;
         cameraDefLocalPos = cameraObj.transform.localPosition;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+        renderers = GetComponentsInChildren<Renderer>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         //Test for inputes
         InputCommands();
-	}
+    }
 
-    public void ResetCamera(GameObject obj = null)
+    public void ResetCamera(GameObject obj, int index)
     {
-        if (obj == null) {
+        if (obj == null)
+        {
             obj = gameObject;
             extraCameras.Clear();
         }
         if (cameraObj == null) { return; }
 
-        foreach(GameObject extraCam in extraCameras)
+        foreach (GameObject extraCam in extraCameras)
         {
             extraCam.transform.SetParent(obj.transform);
             extraCam.transform.localPosition = Vector3.zero;
@@ -76,6 +86,22 @@ public class Player : MonoBehaviour {
 
         obj.GetComponent<Player>().extraCameras = extraCameras;
         obj.GetComponent<Player>().extraCameras.Add(cameraObj);
+
+        //Debug.Log(index);
+        if (index >= 0)
+        {
+            gameObject.layer = 8 + index;
+            foreach (Renderer r in renderers)
+                r.gameObject.layer = 8 + index;
+            int layer = 1 << (8 + index);
+            cameraObj.GetComponent<Camera>().cullingMask &= ~layer;
+        }
+        else
+        {
+            cameraObj.transform.parent = transform;
+            cameraObj.transform.position = new Vector3(0f, -100f * gameObject.layer, 0f);
+        }
+
     }
     public void Respawn()
     {
@@ -88,6 +114,19 @@ public class Player : MonoBehaviour {
 
         animationTime = 0;
         recoverTime = 0;
+    }
+
+    public void InitBook(int index)
+    {
+        if (initBooks) return;
+        if (index < 0) index = 0;
+        else if (index >= bookPrefabs.Length) index %= bookPrefabs.Length;
+
+        for (int i = 0; i < wrists.Length; i++)
+        {
+            GameObject obj = Instantiate(bookPrefabs[index], wrists[i]);
+            obj.layer = 0;
+        }
     }
 
     private void InputCommands()
@@ -106,8 +145,9 @@ public class Player : MonoBehaviour {
             //Make the player block
             if (Input.GetAxis("Player" + playerNum + "Action") > 0) { StartBlock(); }
 
-        //Start the recover timer
-        } else if (animationTime <= 0)
+            //Start the recover timer
+        }
+        else if (animationTime <= 0)
         {
             recoverTime -= Time.deltaTime;
 
@@ -194,7 +234,8 @@ public class Player : MonoBehaviour {
         if (!col.gameObject.name.Contains("Player")) { return; }
 
         //If the 
-        if (blocking) {
+        if (blocking)
+        {
             col.gameObject.GetComponent<Player>().recoverTime = recoverReset * 3;
             col.gameObject.GetComponent<Player>().animationTime = 0;
 
@@ -209,7 +250,7 @@ public class Player : MonoBehaviour {
             col.gameObject.GetComponent<Player>().kills++;
 
             transform.position += Vector3.down * 10;
-            ResetCamera(col.gameObject);
+            ResetCamera(col.gameObject, -1);
             dead = true;
         }
     }

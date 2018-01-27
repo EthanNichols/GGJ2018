@@ -1742,8 +1742,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802286386844864}
-  m_LocalRotation: {x: -0.000000029802319, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1371003, z: -0.0176}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.1318, z: -0.0306}
   m_LocalScale: {x: 0.05657998, y: 0.056579955, z: 0.056579955}
   m_Children: []
   m_Father: {fileID: 4898526551836610}
@@ -2514,7 +2514,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508373941869812}
   m_LocalRotation: {x: -0, y: -0.9696269, z: -0, w: 0.24458897}
-  m_LocalPosition: {x: -1.8147821, y: 9.445311, z: 24.098085}
+  m_LocalPosition: {x: 8.146195, y: 12.258064, z: 32.022053}
   m_LocalScale: {x: 16.05035, y: 16.050362, z: 16.050362}
   m_Children:
   - {fileID: 4903315283381966}
@@ -2675,9 +2675,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.5
+  near clip plane: 0.1
   far clip plane: 1000
-  field of view: 45
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2745,8 +2745,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac993c3292e0d34abacce293cadaa50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 180
-  punchForce: 10
+  rotationSpeed: 150
+  punchForce: 15
   animationTime: 0.3
   recoverTime: 0.5
   wins: 0
@@ -2755,6 +2755,14 @@ MonoBehaviour:
   dead: 0
   punching: 0
   blocking: 0
+  bookPrefabs:
+  - {fileID: 1317362801527628, guid: 5a758a5017dcc43488eda24ba2cc715b, type: 2}
+  - {fileID: 1626419123558634, guid: 647c0d7e3914f6f48b2423915175deb0, type: 2}
+  - {fileID: 1654210119882864, guid: 0f625ce82328dc94d9ab4bacc8f0c6e5, type: 2}
+  - {fileID: 1709789962068338, guid: f4f5d75b9d82f2b4f9ff2c8e67140a68, type: 2}
+  wrists:
+  - {fileID: 4967926941644560}
+  - {fileID: 4716699015434808}
 --- !u!124 &124512786548448106
 Behaviour:
   m_ObjectHideFlags: 1

@@ -83,11 +83,14 @@ public class Manager : MonoBehaviour
     private void RespawnPlayers()
     {
         //Reset the player rotation and their camera
-        foreach (GameObject playerObj in players)
+        for(int i = 0; i <players.Count; i++)
         {
-            playerObj.transform.localRotation = Quaternion.identity;
-            playerObj.GetComponent<Player>().ResetCamera();
-            playerObj.GetComponent<Player>().Respawn();
+            players[i].transform.localRotation = Quaternion.identity;
+            Player p = players[i].GetComponent<Player>();
+
+            p.ResetCamera(null, i);
+            p.Respawn();
+            p.InitBook(i);
         }
 
         //Temp height of player

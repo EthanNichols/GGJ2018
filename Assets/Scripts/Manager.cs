@@ -34,14 +34,16 @@ public class Manager : MonoBehaviour
         //Temp height of player
         float playerHeight = .5f;
 
+        //Set the player's spawn positions
         players[0].transform.position = new Vector3(mapSize / 4, playerHeight, mapSize / 4);
         players[1].transform.position = new Vector3(mapSize / 4 * 3, playerHeight, mapSize / 4);
         players[2].transform.position = new Vector3(mapSize / 4, playerHeight, mapSize / 4 * 3);
         players[3].transform.position = new Vector3(mapSize / 4 * 3, playerHeight, mapSize / 4 * 3);
 
+        //Reset the player rotation and their camera
         foreach(GameObject playerObj in players)
         {
-            Debug.Log(playerObj.name);
+            playerObj.transform.localRotation = Quaternion.identity;
             playerObj.GetComponent<Player>().ResetCamera();
         }
     }

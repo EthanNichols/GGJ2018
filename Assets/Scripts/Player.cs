@@ -19,7 +19,7 @@ public class Player : MonoBehaviour {
     private float rotationAmount = 0;
 
     private GameObject cameraObj;
-    private List<GameObject> extraCameras;
+    private List<GameObject> extraCameras = new List<GameObject>();
 
     //Whether the player is punching ornot
     private bool punching = false;
@@ -46,10 +46,25 @@ public class Player : MonoBehaviour {
 
     public void ResetCamera(GameObject obj = null)
     {
-        if (obj == null) { obj = gameObject; }
+        if (obj == null) {
+            obj = gameObject;
+            extraCameras.Clear();
+        }
+        if (cameraObj == null) { return; }
+
+        foreach(GameObject extraCam in extraCameras)
+        {
+            extraCam.transform.SetParent(obj.transform);
+            extraCam.transform.localPosition = Vector3.zero;
+            extraCam.transform.localRotation = Quaternion.identity;
+        }
+
         cameraObj.transform.SetParent(obj.transform);
         cameraObj.transform.localPosition = Vector3.zero;
         cameraObj.transform.localRotation = Quaternion.identity;
+
+        obj.GetComponent<Player>().extraCameras = extraCameras;
+        obj.GetComponent<Player>().extraCameras.Add(cameraObj);
     }
 
     private void InputCommands()

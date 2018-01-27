@@ -41,12 +41,15 @@ public class Manager : MonoBehaviour
         if (gameOver && stateManager.newState == GameStateManager.GameState.game)
         {
             //Increase the amount of wins the player has
-            winner.GetComponent<Player>().wins++;
-
-            //If the winning player won enough, end the game
-            if (winner.GetComponent<Player>().wins >= winsNeeded)
+            if (winner)
             {
-                stateManager.newState = GameStateManager.GameState.mainMenu;
+                winner.GetComponent<Player>().wins++;
+
+                //If the winning player won enough, end the game
+                if (winner.GetComponent<Player>().wins >= winsNeeded)
+                {
+                    stateManager.newState = GameStateManager.GameState.mainMenu;
+                }
             }
 
             RespawnPlayers();
@@ -63,14 +66,16 @@ public class Manager : MonoBehaviour
         //Add each player that is alive to the count
         foreach (GameObject playerObj in players)
         {
-            if (!playerObj.GetComponent<Player>().dead) {
+            if (!playerObj.GetComponent<Player>().dead)
+            {
                 aliveCount++;
                 winner = playerObj;
             }
         }
 
         //If there is one or less players left end the game
-        if (aliveCount <= 1) {
+        if (aliveCount <= 1)
+        {
             gameOver = true;
         }
     }
@@ -86,13 +91,13 @@ public class Manager : MonoBehaviour
         }
 
         //Temp height of player
-        float playerHeight = .5f;
+        float playerHeight = -0.2756758f;
 
         //Set the player's spawn positions
-        players[0].transform.position = new Vector3(mapSize / 4, playerHeight, mapSize / 4);
-        players[1].transform.position = new Vector3(mapSize / 4 * 3, playerHeight, mapSize / 4);
-        players[2].transform.position = new Vector3(mapSize / 4, playerHeight, mapSize / 4 * 3);
-        players[3].transform.position = new Vector3(mapSize / 4 * 3, playerHeight, mapSize / 4 * 3);
+        players[0].transform.position = new Vector3(mapSize / 5, playerHeight, mapSize / 5);
+        players[1].transform.position = new Vector3(mapSize / 5 * 4, playerHeight, mapSize / 5);
+        players[2].transform.position = new Vector3(mapSize / 5, playerHeight, mapSize / 5 * 4);
+        players[3].transform.position = new Vector3(mapSize / 5 * 4, playerHeight, mapSize / 5 * 4);
     }
 
     private void CreatePlayers()

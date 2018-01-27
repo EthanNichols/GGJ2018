@@ -27,8 +27,13 @@ public class Player : MonoBehaviour {
     private List<GameObject> extraCameras = new List<GameObject>();
 
     //Whether the player is punching ornot
+    [SerializeField]
     private bool punching = false;
+
+    [SerializeField]
     private bool blocking = false;
+
+
 
     //Animations
     Animator animator;
@@ -109,17 +114,19 @@ public class Player : MonoBehaviour {
             //Set the the player to not do anything and to not move
             punching = false;
             blocking = false;
+            animator.SetInteger("State", 0); //Resets player to idle
+
             GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
         else
         {
             //Try to run the two player actions
-            Punch();
-            Block();
+            //Punch();
+            //Block();
 
             //Start the animation timer, and reset the recover timer
             animationTime -= Time.deltaTime;
-            recoverTime = recoverReset;
+            //recoverTime = recoverReset;
         }
     }
 
@@ -149,6 +156,9 @@ public class Player : MonoBehaviour {
         //Reset the timers
         animationTime = animationReset;
         recoverTime = recoverReset;
+
+        GetComponent<Rigidbody>().velocity = transform.forward * punchForce;
+        animator.SetInteger("State", 1);
     }
     private void Punch()
     {
@@ -164,8 +174,8 @@ public class Player : MonoBehaviour {
 
         //Reset the timers
         animator.SetInteger("State", 2);
-        animationTime = animationReset * 2;
-        recoverTime = recoverReset * .8f;
+        animationTime = animationReset * 1.75f;
+        recoverTime = recoverReset * .75f;
     }
     private void Block()
     {
@@ -178,7 +188,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnCollisionStay(Collision col)
     {
         //If a player doesn't hit you ignore it
         if (!col.gameObject.name.Contains("Player")) { return; }

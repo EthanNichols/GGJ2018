@@ -1743,7 +1743,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802286386844864}
   m_LocalRotation: {x: -0.000000029802319, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.14710028, z: -0.0106}
+  m_LocalPosition: {x: 0, y: 0.1371003, z: -0.0176}
   m_LocalScale: {x: 0.05657998, y: 0.056579955, z: 0.056579955}
   m_Children: []
   m_Father: {fileID: 4898526551836610}
@@ -2514,8 +2514,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508373941869812}
   m_LocalRotation: {x: -0, y: -0.9696269, z: -0, w: 0.24458897}
-  m_LocalPosition: {x: 2.86, y: 0, z: 2.25}
-  m_LocalScale: {x: 21.46804, y: 21.468056, z: 21.468056}
+  m_LocalPosition: {x: -1.8147821, y: 9.445311, z: 24.098085}
+  m_LocalScale: {x: 16.05035, y: 16.050362, z: 16.050362}
   m_Children:
   - {fileID: 4903315283381966}
   - {fileID: 4586769894343132}
@@ -2675,9 +2675,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.5
   far clip plane: 1000
-  field of view: 60
+  field of view: 45
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2745,14 +2745,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac993c3292e0d34abacce293cadaa50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 200
-  punchForce: 30
-  animationTime: 0.2
+  rotationSpeed: 180
+  punchForce: 10
+  animationTime: 0.3
   recoverTime: 0.5
   wins: 0
   kills: 0
   playerNum: 0
   dead: 0
+  punching: 0
+  blocking: 0
 --- !u!124 &124512786548448106
 Behaviour:
   m_ObjectHideFlags: 1

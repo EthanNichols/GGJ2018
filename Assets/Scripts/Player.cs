@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
 
     [HideInInspector]
     public int playerNum;
+    public bool dead = false;
     private float rotationAmount = 0;
 
     private GameObject cameraObj;
@@ -26,7 +27,7 @@ public class Player : MonoBehaviour {
     private bool blocking = false;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         //Set the reset timers
         animationReset = animationTime;
         recoverReset = recoverTime;
@@ -61,6 +62,18 @@ public class Player : MonoBehaviour {
 
         obj.GetComponent<Player>().extraCameras = extraCameras;
         obj.GetComponent<Player>().extraCameras.Add(cameraObj);
+    }
+    public void Respawn()
+    {
+        dead = false;
+        punching = false;
+        blocking = false;
+
+        rotationAmount = 0;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+        animationTime = 0;
+        recoverTime = 0;
     }
 
     private void InputCommands()
@@ -171,8 +184,8 @@ public class Player : MonoBehaviour {
         if (col.gameObject.GetComponent<Player>().punching)
         {
             transform.position += Vector3.down * 10;
-
             ResetCamera(col.gameObject);
+            dead = true;
         }
     }
 }

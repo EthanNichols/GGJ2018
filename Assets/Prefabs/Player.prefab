@@ -202,11 +202,7 @@ MonoBehaviour:
   punchForce: 30
   animationTime: 0.2
   recoverTime: 0.5
-  recoverReset: 0
-  leftKey: 97
-  rightKey: 100
-  punchKey: 119
-  blockKey: 115
+  playerNum: 0
 --- !u!124 &124184734620068486
 Behaviour:
   m_ObjectHideFlags: 1

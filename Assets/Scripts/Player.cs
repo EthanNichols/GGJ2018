@@ -73,19 +73,19 @@ public class Player : MonoBehaviour
         }
         if (cameraObj == null) { return; }
 
-        foreach (GameObject extraCam in extraCameras)
-        {
-            extraCam.transform.SetParent(obj.transform);
-            extraCam.transform.localPosition = Vector3.zero;
-            extraCam.transform.localRotation = Quaternion.identity;
-        }
+        //foreach (GameObject extraCam in extraCameras)
+        //{
+        //    extraCam.transform.SetParent(obj.transform);
+        //    extraCam.transform.localPosition = Vector3.zero;
+        //    extraCam.transform.localRotation = Quaternion.identity;
+        //}
 
-        cameraObj.transform.SetParent(obj.transform);
+        cameraObj.transform.SetParent(transform);
         cameraObj.transform.localPosition = cameraDefLocalPos;
         cameraObj.transform.localRotation = Quaternion.identity;
 
-        obj.GetComponent<Player>().extraCameras = extraCameras;
-        obj.GetComponent<Player>().extraCameras.Add(cameraObj);
+        //obj.GetComponent<Player>().extraCameras = extraCameras;
+        //obj.GetComponent<Player>().extraCameras.Add(cameraObj);
 
         //Debug.Log(index);
         if (index >= 0)

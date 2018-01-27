@@ -15,6 +15,9 @@ public class Player : MonoBehaviour {
     private float recoverReset;
 
     [HideInInspector]
+    public int wins;
+    public int kills;
+
     public int playerNum;
     public bool dead = false;
     private float rotationAmount = 0;
@@ -192,6 +195,9 @@ public class Player : MonoBehaviour {
         //If the player that hit you is punching teleport you down
         if (col.gameObject.GetComponent<Player>().punching)
         {
+            //Increase the amount of kills the player has
+            col.gameObject.GetComponent<Player>().kills++;
+
             transform.position += Vector3.down * 10;
             ResetCamera(col.gameObject);
             dead = true;

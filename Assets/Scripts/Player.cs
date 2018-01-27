@@ -12,16 +12,14 @@ public class Player : MonoBehaviour {
     public float animationTime = .4f;
     public float recoverTime = .2f;
     private float animationReset;
-    public float recoverReset;
+    private float recoverReset;
 
-    //Input keys
-    public KeyCode leftKey;
-    public KeyCode rightKey;
-    public KeyCode punchKey;
-    public KeyCode blockKey;
-
-
+    [HideInInspector]
+    public int playerNum;
     private float rotationAmount = 0;
+
+    private GameObject cameraObj;
+    private List<GameObject> extraCameras;
 
     //Whether the player is punching ornot
     private bool punching = false;
@@ -32,6 +30,8 @@ public class Player : MonoBehaviour {
         //Set the reset timers
         animationReset = animationTime;
         recoverReset = recoverTime;
+
+        cameraObj = transform.Find("Camera").gameObject;
 	}
 	
 	// Update is called once per frame
@@ -40,31 +40,28 @@ public class Player : MonoBehaviour {
         InputCommands();
 	}
 
+    public void ResetCamera(GameObject obj = null)
+    {
+        if (obj == null) { obj = gameObject; }
+        cameraObj.transform.SetParent(obj.transform);
+        cameraObj.transform.localPosition = Vector3.zero;
+        cameraObj.transform.localRotation = Quaternion.identity;
+    }
+
     private void InputCommands()
     {
         //Get rotation inpute
-        if (Input.GetKey(leftKey)) { RotateLeft(); }
-        if (Input.GetKey(rightKey)) { RotateRight(); }
+        if (Input.GetAxis("Player" + playerNum + "Move") < 0) { RotateLeft(); }
+        if (Input.GetAxis("Player" + playerNum + "Move") > 0) { RotateRight(); }
 
         if (animationTime <= 0 && recoverTime <= 0)
         {
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+
             //Make the player punch
-            if (Input.GetKeyDown(punchKey)) {
-                punching = true;
-
-                //Reset the timers
-                animationTime = animationReset;
-                recoverTime = recoverReset;
-            }
-
+            if (Input.GetAxis("Player" + playerNum + "Action") < 0) { StartPunch(); }
             //Make the player block
-            if (Input.GetKeyDown(blockKey)) {
-                blocking = true;
-
-                //Reset the timers
-                animationTime = animationReset;
-                recoverTime = recoverReset;
-            }
+            if (Input.GetAxis("Player" + playerNum + "Action") > 0) { StartBlock(); }
 
         //Start the recover timer
         } else if (animationTime <= 0)
@@ -88,13 +85,15 @@ public class Player : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Rotate the object left and right
+    /// </summary>
     public void RotateLeft()
     {
         //Calc and set the rotation
         rotationAmount -= rotationSpeed * Time.deltaTime;
         transform.localRotation = Quaternion.Euler(0, rotationAmount, 0);
     }
-
     public void RotateRight()
     {
         //Calc and set the rotation
@@ -102,15 +101,33 @@ public class Player : MonoBehaviour {
         transform.localRotation = Quaternion.Euler(0, rotationAmount, 0);
     }
 
-    public void Punch()
+    /// <summary>
+    /// Start functions for blocking and punching
+    /// </summary>
+    public void StartPunch()
+    {
+        punching = true;
+
+        //Reset the timers
+        animationTime = animationReset;
+        recoverTime = recoverReset;
+    }
+    private void Punch()
     {
         //Make sure the player isn't blocking and is punching
         if (blocking || !punching) { return; }
 
         GetComponent<Rigidbody>().velocity = transform.forward * punchForce;
     }
+    public void StartBlock()
+    {
+        blocking = true;
 
-    public void Block()
+        //Reset the timers
+        animationTime = animationReset * 2;
+        recoverTime = recoverReset * .8f;
+    }
+    private void Block()
     {
         //Make sure the player isn't punching and is blocking
         if (punching || !blocking) { return; }
@@ -118,6 +135,29 @@ public class Player : MonoBehaviour {
         if (animationTime > 0 && blocking)
         {
 
+        }
+    }
+
+    private void OnCollisionEnter(Collision col)
+    {
+        //If a player doesn't hit you ignore it
+        if (!col.gameObject.name.Contains("Player")) { return; }
+
+        //If the 
+        if (blocking) {
+            col.gameObject.GetComponent<Player>().recoverTime = recoverReset * 3;
+            col.gameObject.GetComponent<Player>().animationTime = 0;
+
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            return;
+        }
+
+        //If the player that hit you is punching teleport you down
+        if (col.gameObject.GetComponent<Player>().punching)
+        {
+            transform.position += Vector3.down * 10;
+
+            ResetCamera(col.gameObject);
         }
     }
 }

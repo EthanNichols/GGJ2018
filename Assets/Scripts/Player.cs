@@ -26,11 +26,15 @@ public class Player : MonoBehaviour {
     private bool punching = false;
     private bool blocking = false;
 
+    //Animations
+    Animator animator;
+
 	// Use this for initialization
 	void Awake () {
         //Set the reset timers
         animationReset = animationTime;
         recoverReset = recoverTime;
+        animator = GetComponent<Animator>();
 
         cameraObj = transform.Find("Camera").gameObject;
 	}
@@ -85,6 +89,7 @@ public class Player : MonoBehaviour {
         if (animationTime <= 0 && recoverTime <= 0)
         {
             GetComponent<Rigidbody>().velocity = Vector3.zero;
+            animator.SetInteger("State", 0); //Resets player to idle
 
             //Make the player punch
             if (Input.GetAxis("Player" + playerNum + "Action") < 0) { StartPunch(); }
@@ -146,12 +151,14 @@ public class Player : MonoBehaviour {
         if (blocking || !punching) { return; }
 
         GetComponent<Rigidbody>().velocity = transform.forward * punchForce;
+        animator.SetInteger("State", 1);
     }
     public void StartBlock()
     {
         blocking = true;
 
         //Reset the timers
+        animator.SetInteger("State", 2);
         animationTime = animationReset * 2;
         recoverTime = recoverReset * .8f;
     }

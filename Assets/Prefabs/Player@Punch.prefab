@@ -1143,7 +1143,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1802286386844864
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -1742,12 +1742,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802286386844864}
-  m_LocalRotation: {x: -0.4728941, y: 0.5257102, z: 0.4728941, w: 0.5257102}
-  m_LocalPosition: {x: -0.025, y: -0.013, z: 0}
-  m_LocalScale: {x: 0.056579962, y: 0.056579936, z: 0.056579936}
+  m_LocalRotation: {x: -0.000000029802319, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.14710028, z: -0.018639367}
+  m_LocalScale: {x: 0.05657998, y: 0.056579955, z: 0.056579955}
   m_Children: []
-  m_Father: {fileID: 4757468252210988}
-  m_RootOrder: 1
+  m_Father: {fileID: 4898526551836610}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4334772803937836
 Transform:
@@ -1858,7 +1858,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1575088820232612}
-  m_LocalRotation: {x: 0.72455496, y: 0.30383503, z: 0.28531963, w: 0.5489055}
+  m_LocalRotation: {x: 0.7245549, y: 0.303835, z: 0.2853196, w: 0.54890543}
   m_LocalPosition: {x: -0.010406081, y: -1.776357e-17, z: -2.220446e-18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2330,7 +2330,6 @@ Transform:
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
   m_Children:
   - {fileID: 4738890263545962}
-  - {fileID: 4313645785322266}
   m_Father: {fileID: 4562462014726910}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2515,13 +2514,14 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508373941869812}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.187769, y: -1.44, z: 23.112623}
+  m_LocalPosition: {x: 11.249359, y: 11.440309, z: 14.189866}
   m_LocalScale: {x: 17.674107, y: 17.67412, z: 17.67412}
   m_Children:
   - {fileID: 4903315283381966}
   - {fileID: 4586769894343132}
   - {fileID: 4390595214156024}
   - {fileID: 4678450243313730}
+  - {fileID: 4313645785322266}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2750,6 +2750,7 @@ MonoBehaviour:
   animationTime: 0.2
   recoverTime: 0.5
   playerNum: 0
+  dead: 0
 --- !u!124 &124512786548448106
 Behaviour:
   m_ObjectHideFlags: 1

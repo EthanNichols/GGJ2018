@@ -20,6 +20,7 @@ public class Player : MonoBehaviour {
     private float rotationAmount = 0;
 
     private GameObject cameraObj;
+    private Vector3 cameraDefLocalPos;
     private List<GameObject> extraCameras = new List<GameObject>();
 
     //Whether the player is punching ornot
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour {
         animator = GetComponent<Animator>();
 
         cameraObj = transform.Find("Camera").gameObject;
+        cameraDefLocalPos = cameraObj.transform.localPosition;
 	}
 	
 	// Update is called once per frame
@@ -61,7 +63,7 @@ public class Player : MonoBehaviour {
         }
 
         cameraObj.transform.SetParent(obj.transform);
-        cameraObj.transform.localPosition = Vector3.zero;
+        cameraObj.transform.localPosition = cameraDefLocalPos;
         cameraObj.transform.localRotation = Quaternion.identity;
 
         obj.GetComponent<Player>().extraCameras = extraCameras;

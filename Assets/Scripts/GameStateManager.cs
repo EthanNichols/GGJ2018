@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour{
 
@@ -75,6 +76,7 @@ public class GameStateManager : MonoBehaviour{
             if (escapeKeyTimer > 0)
             {
                 newState = GameState.mainMenu;
+                SceneManager.LoadScene(0);
             }
             else
             {

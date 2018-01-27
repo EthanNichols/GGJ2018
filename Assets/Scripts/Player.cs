@@ -16,20 +16,25 @@ public class Player : MonoBehaviour {
 
     [HideInInspector]
     public int playerNum;
+    public bool dead = false;
     private float rotationAmount = 0;
 
     private GameObject cameraObj;
-    private List<GameObject> extraCameras;
+    private List<GameObject> extraCameras = new List<GameObject>();
 
     //Whether the player is punching ornot
     private bool punching = false;
     private bool blocking = false;
 
+    //Animations
+    Animator animator;
+
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         //Set the reset timers
         animationReset = animationTime;
         recoverReset = recoverTime;
+        animator = GetComponent<Animator>();
 
         cameraObj = transform.Find("Camera").gameObject;
 	}
@@ -42,10 +47,37 @@ public class Player : MonoBehaviour {
 
     public void ResetCamera(GameObject obj = null)
     {
-        if (obj == null) { obj = gameObject; }
+        if (obj == null) {
+            obj = gameObject;
+            extraCameras.Clear();
+        }
+        if (cameraObj == null) { return; }
+
+        foreach(GameObject extraCam in extraCameras)
+        {
+            extraCam.transform.SetParent(obj.transform);
+            extraCam.transform.localPosition = Vector3.zero;
+            extraCam.transform.localRotation = Quaternion.identity;
+        }
+
         cameraObj.transform.SetParent(obj.transform);
         cameraObj.transform.localPosition = Vector3.zero;
         cameraObj.transform.localRotation = Quaternion.identity;
+
+        obj.GetComponent<Player>().extraCameras = extraCameras;
+        obj.GetComponent<Player>().extraCameras.Add(cameraObj);
+    }
+    public void Respawn()
+    {
+        dead = false;
+        punching = false;
+        blocking = false;
+
+        rotationAmount = 0;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+        animationTime = 0;
+        recoverTime = 0;
     }
 
     private void InputCommands()
@@ -57,6 +89,7 @@ public class Player : MonoBehaviour {
         if (animationTime <= 0 && recoverTime <= 0)
         {
             GetComponent<Rigidbody>().velocity = Vector3.zero;
+            animator.SetInteger("State", 0); //Resets player to idle
 
             //Make the player punch
             if (Input.GetAxis("Player" + playerNum + "Action") < 0) { StartPunch(); }
@@ -118,12 +151,14 @@ public class Player : MonoBehaviour {
         if (blocking || !punching) { return; }
 
         GetComponent<Rigidbody>().velocity = transform.forward * punchForce;
+        animator.SetInteger("State", 1);
     }
     public void StartBlock()
     {
         blocking = true;
 
         //Reset the timers
+        animator.SetInteger("State", 2);
         animationTime = animationReset * 2;
         recoverTime = recoverReset * .8f;
     }
@@ -156,8 +191,8 @@ public class Player : MonoBehaviour {
         if (col.gameObject.GetComponent<Player>().punching)
         {
             transform.position += Vector3.down * 10;
-
             ResetCamera(col.gameObject);
+            dead = true;
         }
     }
 }

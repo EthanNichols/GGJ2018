@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-
     public GameObject player;
 
     public List<GameObject> players;
     public float mapSize;
 
-    public bool GameOver = false;
+    public bool gameOver = false;
+
+    private GameStateManager stateManager;
 
     // Use this for initialization
     void Start()
     {
+        stateManager = GameObject.FindGameObjectWithTag("StateManager").GetComponent<GameStateManager>();
+
         CreatePlayers();
         RespawnPlayers();
     }
@@ -22,28 +25,55 @@ public class Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameOver)
+        CheckGameOver();
+
+        //If the game is over and the state isn't the restart screen, set it to restart
+        if (gameOver && stateManager.currentState != GameStateManager.GameState.restart)
+        {
+            stateManager.newState = GameStateManager.GameState.restart;
+        }
+
+        //If the new state is the game, and the game is over, respawn players and state a new round
+        if (gameOver && stateManager.newState == GameStateManager.GameState.game)
         {
             RespawnPlayers();
-            GameOver = false;
+            gameOver = false;
         }
+    }
+
+    private void CheckGameOver()
+    {
+        //The amount of players alive
+        int aliveCount = 0;
+
+        //Add each player that is alive to the count
+        foreach (GameObject playerObj in players)
+        {
+            if (!playerObj.GetComponent<Player>().dead) { aliveCount++; }
+        }
+
+        //If there is one or less players left end the game
+        if (aliveCount <= 1) { gameOver = true; }
     }
 
     private void RespawnPlayers()
     {
+        //Reset the player rotation and their camera
+        foreach (GameObject playerObj in players)
+        {
+            playerObj.transform.localRotation = Quaternion.identity;
+            playerObj.GetComponent<Player>().ResetCamera();
+            playerObj.GetComponent<Player>().Respawn();
+        }
+
         //Temp height of player
         float playerHeight = .5f;
 
+        //Set the player's spawn positions
         players[0].transform.position = new Vector3(mapSize / 4, playerHeight, mapSize / 4);
         players[1].transform.position = new Vector3(mapSize / 4 * 3, playerHeight, mapSize / 4);
         players[2].transform.position = new Vector3(mapSize / 4, playerHeight, mapSize / 4 * 3);
         players[3].transform.position = new Vector3(mapSize / 4 * 3, playerHeight, mapSize / 4 * 3);
-
-        foreach(GameObject playerObj in players)
-        {
-            Debug.Log(playerObj.name);
-            playerObj.GetComponent<Player>().ResetCamera();
-        }
     }
 
     private void CreatePlayers()

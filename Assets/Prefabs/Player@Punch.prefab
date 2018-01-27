@@ -1743,7 +1743,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802286386844864}
   m_LocalRotation: {x: -0.000000029802319, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.14710028, z: -0.018639367}
+  m_LocalPosition: {x: 0, y: 0.14710028, z: -0.0106}
   m_LocalScale: {x: 0.05657998, y: 0.056579955, z: 0.056579955}
   m_Children: []
   m_Father: {fileID: 4898526551836610}
@@ -2513,9 +2513,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508373941869812}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.249359, y: 11.440309, z: 14.189866}
-  m_LocalScale: {x: 17.674107, y: 17.67412, z: 17.67412}
+  m_LocalRotation: {x: -0, y: -0.9696269, z: -0, w: 0.24458897}
+  m_LocalPosition: {x: 2.86, y: 0, z: 2.25}
+  m_LocalScale: {x: 21.46804, y: 21.468056, z: 21.468056}
   m_Children:
   - {fileID: 4903315283381966}
   - {fileID: 4586769894343132}
@@ -2524,7 +2524,7 @@ Transform:
   - {fileID: 4313645785322266}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -151.68501, z: 0}
 --- !u!4 &4903315283381966
 Transform:
   m_ObjectHideFlags: 1
@@ -2706,7 +2706,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -2749,6 +2749,8 @@ MonoBehaviour:
   punchForce: 30
   animationTime: 0.2
   recoverTime: 0.5
+  wins: 0
+  kills: 0
   playerNum: 0
   dead: 0
 --- !u!124 &124512786548448106

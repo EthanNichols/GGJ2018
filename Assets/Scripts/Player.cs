@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     private GameObject cameraObj;
     private Vector3 cameraDefLocalPos;
     private List<GameObject> extraCameras = new List<GameObject>();
+    private PlayerAudioManager PAM;
 
     //Whether the player is punching ornot
     [SerializeField]
@@ -69,12 +70,15 @@ public class Player : MonoBehaviour
         }
 
         deathParticle = GetComponentInChildren<DeathParticleManager>();
+
+        PAM = this.gameObject.GetComponent<PlayerAudioManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver) {
+            PAM.PlayDeath();
             transform.LookAt(new Vector3(5, transform.position.y, 5));
             return;
         }
@@ -228,6 +232,8 @@ public class Player : MonoBehaviour
 
         GetComponent<Rigidbody>().velocity = transform.forward * punchForce;
         animator.SetInteger("State", 1);
+        PAM.PlayDash();
+        
     }
     public void StartBlock()
     {
@@ -273,6 +279,7 @@ public class Player : MonoBehaviour
                 otherPlayer.punching = false;
 
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
+                PAM.PlayBlock();
             }
             else
             {
@@ -288,6 +295,7 @@ public class Player : MonoBehaviour
                 transform.position += Vector3.down * 10;
                 ResetCamera(col.gameObject, -1);
                 dead = true;
+                PAM.PlayHit();
             }
         }
     }

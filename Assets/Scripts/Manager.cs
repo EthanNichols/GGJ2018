@@ -19,6 +19,7 @@ public class Manager : MonoBehaviour
 
     private GameObject winner;
     private GameStateManager stateManager;
+    private PlayerAudioManager PAM;
 
     // Use this for initialization
     void Start()
@@ -34,6 +35,8 @@ public class Manager : MonoBehaviour
 
         if (restartScreen)
             restartScreen.SetActive(true);
+
+        PAM = players[0].GetComponent<PlayerAudioManager>();
     }
 
     // Update is called once per frame
@@ -50,6 +53,7 @@ public class Manager : MonoBehaviour
             if (winner)
             {
                 winner.GetComponent<Player>().wins++;
+                PAM.PlayCelebrate();
             }
         }
 
@@ -62,6 +66,7 @@ public class Manager : MonoBehaviour
             {
                 stateManager.newState = GameStateManager.GameState.mainMenu;
                 SceneManager.LoadScene(0);
+
             }
             RespawnPlayers();
             gameOver = false;

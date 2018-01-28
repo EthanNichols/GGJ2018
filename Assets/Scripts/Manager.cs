@@ -172,7 +172,8 @@ public class Manager : MonoBehaviour
             if (stateManager.PlayerCount.Length > i)
             {
                 int isRobot = stateManager.PlayerCount[i];
-                if (isRobot == 1)
+                Debug.Log(isRobot);
+                if (isRobot == 48)
                     newPlayer.GetComponent<Player>().InitML();
             }
 

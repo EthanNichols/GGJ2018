@@ -220,11 +220,11 @@ public class Brain : MonoBehaviour
         foreach (KeyValuePair<int, Agent> idAgent in agents)
         {
             List<Camera> observations = idAgent.Value.observations;
-            if (observations.Count < brainParameters.cameraResolutions.Count())
-            {
-                throw new UnityAgentsException(string.Format(@"The number of observations does not match for agent {0}:
-	Was expecting at least {1} observation but received {2}.", idAgent.Value.gameObject.name, brainParameters.cameraResolutions.Count(), observations.Count));
-            }
+ //           if (observations.Count < brainParameters.cameraResolutions.Count())
+ //           {
+ //               throw new UnityAgentsException(string.Format(@"The number of observations does not match for agent {0}:
+	//Was expecting at least {1} observation but received {2}.", idAgent.Value.gameObject.name, brainParameters.cameraResolutions.Count(), observations.Count));
+ //           }
             result.Add(idAgent.Key, observations);
         }
         return result;

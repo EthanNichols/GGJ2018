@@ -271,7 +271,7 @@ public class Player : MonoBehaviour
             {
                 if (ml)
                 {
-                    ml.reward -= 1.0f;
+                    ml.reward -= 0.8f;
                 }
 
                 //Increase the amount of kills the player has

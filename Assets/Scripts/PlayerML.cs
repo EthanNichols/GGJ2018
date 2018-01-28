@@ -62,21 +62,21 @@ public class PlayerML : Agent
             if ((transform.position.x > -0.8f && transform.position.x < 10.55f) &&
                 (transform.position.z > -0.8f && transform.position.z < 10.75f))
             {
-                reward += 0.2f;
+                reward += 0.1f;
             }
-            else reward -= 0.001f;
+            else reward -= 0.01f;
         }
 
         switch ((int)act[0])
         {
             case 0:
-                if (playerControls.RecoveryTime > 0f)
-                    reward += 0.001f;
+                if (playerControls.RecoveryTime > -Time.deltaTime)
+                    reward += 0.01f;
                 playerControls.StartBlock();
                 break;
             case 1:
-                if (playerControls.RecoveryTime > 0f)
-                    reward += 0.002f;
+                if (playerControls.RecoveryTime > -Time.deltaTime)
+                    reward += 0.02f;
                 playerControls.StartPunch();
                 break;
             case 2:
@@ -96,7 +96,7 @@ public class PlayerML : Agent
         {
             if (Physics.Raycast(transform.position + Vector3.up, transform.forward, float.MaxValue, mask))
             {
-                reward += 0.3f;
+                reward += 0.1f;
             }
 
             yield return new WaitForSeconds(0.3f);

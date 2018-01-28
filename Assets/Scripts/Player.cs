@@ -83,8 +83,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver) {
-            PAM.PlayDeath();
+            //PAM.PlayDeath();
             transform.LookAt(new Vector3(5, transform.position.y, 5));
+            animator.SetInteger("State", 0); //Resets player to idle
+
             return;
         }
 
@@ -243,6 +245,9 @@ public class Player : MonoBehaviour
 
         GetComponent<Rigidbody>().velocity = transform.forward * punchForce;
         animator.SetInteger("State", 1);
+
+        PAM.PlayDash();
+
     }
     private void Punch()
     {
@@ -252,7 +257,6 @@ public class Player : MonoBehaviour
 
         GetComponent<Rigidbody>().velocity = transform.forward * punchForce;
         animator.SetInteger("State", 1);
-        PAM.PlayDash();
         
     }
     public void StartBlock()
@@ -317,13 +321,15 @@ public class Player : MonoBehaviour
                     //ml.reward -= 0.8f;
                 }
 
+
                 //Increase the amount of kills the player has
                 col.gameObject.GetComponent<Player>().kills++;
 
                 transform.position += Vector3.down * 10;
                 ResetCamera(col.gameObject, -1);
                 dead = true;
-                PAM.PlayHit();
+                otherPlayer.PAM.PlayHit();
+                PAM.PlayDeath();
             }
         }
     }

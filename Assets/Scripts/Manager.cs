@@ -79,6 +79,7 @@ public class Manager : MonoBehaviour
         if (aliveCount <= 1)
         {
             gameOver = true;
+            ConfettiManager.Instance.StartConfetti();
 
             if (winner)
             {

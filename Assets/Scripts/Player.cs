@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     //Animations
     Animator animator;
     DeathParticleManager deathParticle;
+    BlockParticleManager blockParticle;
 
     public bool isML = false;
 
@@ -64,6 +65,7 @@ public class Player : MonoBehaviour
 
         renderers = GetComponentsInChildren<Renderer>();
         deathParticle = GetComponentInChildren<DeathParticleManager>();
+        blockParticle = GetComponentInChildren<BlockParticleManager>();
         PAM = this.gameObject.GetComponent<PlayerAudioManager>();
 
     }
@@ -309,6 +311,7 @@ public class Player : MonoBehaviour
 
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 PAM.PlayBlock();
+                blockParticle.PlayParticle();
             }
             else
             {

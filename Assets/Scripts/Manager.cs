@@ -170,6 +170,30 @@ public class Manager : MonoBehaviour
             newPlayer.GetComponent<Player>().playerNum = (i + 1);
             newPlayer.name = "Player " + (i + 1);
 
+            //switch (playerCount)
+            //{
+            //    case 3:
+            //        if (i == 2)
+            //        {
+            //            newPlayer.GetComponent<Player>().InitML();
+            //        }
+            //        break;
+            //    case 2:
+            //       if (i == 2 || i == 1)
+            //        {
+            //            newPlayer.GetComponent<Player>().InitML();
+            //        }
+            //        break;
+            //    case 1:
+            //        if (i != 0)
+            //        {
+            //        }
+            //        break;
+            //    case 4:
+            //        //newPlayer.GetComponent<Player>().InitML();
+            //        break;
+            //}
+
             players.Add(newPlayer);
 
             //Get the camera on the player

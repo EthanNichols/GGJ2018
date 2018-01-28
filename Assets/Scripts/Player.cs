@@ -258,7 +258,7 @@ public class Player : MonoBehaviour
             {
                 if (ml)
                 {
-                    ml.reward += 0.8f;
+                   // ml.reward += 0.8f;
                 }
 
                 otherPlayer.recoverTime = recoverReset * 3;
@@ -271,7 +271,7 @@ public class Player : MonoBehaviour
             {
                 if (ml)
                 {
-                    ml.reward -= 0.8f;
+                    //ml.reward -= 0.8f;
                 }
 
                 //Increase the amount of kills the player has

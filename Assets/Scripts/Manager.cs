@@ -83,8 +83,8 @@ public class Manager : MonoBehaviour
             if (winner)
             {
                 PlayerML winningAgent = winner.GetComponent<PlayerML>();
-                if (winningAgent)
-                    winningAgent.reward += 1.0f;
+                //if (winningAgent)
+                //    winningAgent.reward += 1.0f;
             }
 
             foreach (GameObject playerObj in players)

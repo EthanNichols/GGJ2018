@@ -8,7 +8,7 @@ public class GameStateManager : MonoBehaviour{
     public float restartScreenTimer = 3;
     private float restartReset;
 
-    public int PlayerCount;
+    public string PlayerCount;
 
     public enum GameState
     {

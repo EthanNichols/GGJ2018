@@ -57,15 +57,7 @@ public class PlayerML : Agent
     {
         bool currIsDead = playerControls.dead;
 
-        if (!currIsDead)
-        {
-            if ((transform.position.x > 0f && transform.position.x < 10f) &&
-                (transform.position.z > 0f && transform.position.z < 10f))
-            {
-                reward += 0.4f;
-            }
-            else reward -= 0.5f;
-        }
+
 
         switch ((int)act[0])
         {
@@ -75,9 +67,20 @@ public class PlayerML : Agent
                 playerControls.StartBlock();
                 break;
             case 1:
-                if (playerControls.RecoveryTime > -Time.deltaTime)
-                    reward += 0.4f;
                 playerControls.StartPunch();
+                if (playerControls.RecoveryTime > -Time.deltaTime)
+                    reward += 0.2f;
+
+                if (!currIsDead)
+                {
+                    if ((transform.position.x > 0f && transform.position.x < 10f) &&
+                        (transform.position.z > 0f && transform.position.z < 10f))
+                    {
+                        reward += 0.2f;
+                    }
+                    else reward -= 0.5f;
+                }
+
                 break;
             case 2:
                 playerControls.RotateLeft();

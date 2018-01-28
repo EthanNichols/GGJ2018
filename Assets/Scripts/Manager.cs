@@ -28,7 +28,8 @@ public class Manager : MonoBehaviour
         CreatePlayers();
         RespawnPlayers();
 
-        restartScreen.SetActive(false);
+        if (restartScreen)
+            restartScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -51,8 +52,9 @@ public class Manager : MonoBehaviour
         //If the new state is the game, and the game is over, respawn players and state a new round
         if (gameOver && stateManager.newState == GameStateManager.GameState.game)
         {
+
             //If the winning player won enough, end the game
-            if (winner.GetComponent<Player>().wins >= winsNeeded)
+            if (winner && winner.GetComponent<Player>().wins >= winsNeeded)
             {
                 stateManager.newState = GameStateManager.GameState.mainMenu;
                 SceneManager.LoadScene(0);
@@ -63,11 +65,18 @@ public class Manager : MonoBehaviour
 
         if (stateManager.currentState == GameStateManager.GameState.restart)
         {
-            restartScreen.SetActive(true);
-            UpdateRestartScreen();   
-        } else
+            if (restartScreen)
+
+            {
+                restartScreen.SetActive(true);
+
+                UpdateRestartScreen();
+            }
+        }
+        else
         {
-            restartScreen.SetActive(false);
+            if (restartScreen)
+                restartScreen.SetActive(false);
         }
     }
 
@@ -175,7 +184,7 @@ public class Manager : MonoBehaviour
 
     private void UpdateRestartScreen()
     {
-        for(int i=0; i<players.Count; i++)
+        for (int i = 0; i < players.Count; i++)
         {
             GameObject scoreText = restartScreen.transform.Find("Player" + (i + 1)).gameObject;
 

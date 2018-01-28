@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class Manager : MonoBehaviour
     public GameObject player;
 
     public float mapSize;
+    public GameObject restartScreen;
 
     [HideInInspector]
     public List<GameObject> players;
@@ -24,6 +27,8 @@ public class Manager : MonoBehaviour
 
         CreatePlayers();
         RespawnPlayers();
+
+        restartScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -35,25 +40,34 @@ public class Manager : MonoBehaviour
         if (gameOver && stateManager.currentState != GameStateManager.GameState.restart)
         {
             stateManager.newState = GameStateManager.GameState.restart;
+
+            //Increase the amount of wins the player has
+            if (winner)
+            {
+                winner.GetComponent<Player>().wins++;
+            }
         }
 
         //If the new state is the game, and the game is over, respawn players and state a new round
         if (gameOver && stateManager.newState == GameStateManager.GameState.game)
         {
-            //Increase the amount of wins the player has
-            if (winner)
+            //If the winning player won enough, end the game
+            if (winner.GetComponent<Player>().wins >= winsNeeded)
             {
-                winner.GetComponent<Player>().wins++;
-
-                //If the winning player won enough, end the game
-                if (winner.GetComponent<Player>().wins >= winsNeeded)
-                {
-                    stateManager.newState = GameStateManager.GameState.mainMenu;
-                }
+                stateManager.newState = GameStateManager.GameState.mainMenu;
+                SceneManager.LoadScene(0);
             }
-
             RespawnPlayers();
             gameOver = false;
+        }
+
+        if (stateManager.currentState == GameStateManager.GameState.restart)
+        {
+            restartScreen.SetActive(true);
+            UpdateRestartScreen();   
+        } else
+        {
+            restartScreen.SetActive(false);
         }
     }
 
@@ -128,7 +142,7 @@ public class Manager : MonoBehaviour
             GameObject newPlayer = Instantiate(player);
             newPlayer.GetComponent<Player>().playerNum = (i + 1);
             newPlayer.name = "Player " + (i + 1);
-                
+
             players.Add(newPlayer);
 
             //Get the camera on the player
@@ -153,6 +167,19 @@ public class Manager : MonoBehaviour
                     cameraObj.GetComponent<Camera>().rect = new Rect(.5f, 0, .5f, .5f);
                     break;
             }
+        }
+    }
+
+    private void UpdateRestartScreen()
+    {
+        for(int i=0; i<players.Count; i++)
+        {
+            GameObject scoreText = restartScreen.transform.Find("Player" + (i + 1)).gameObject;
+
+            int localWins = players[i].GetComponent<Player>().wins;
+            int localKills = players[i].GetComponent<Player>().kills;
+
+            scoreText.GetComponent<Text>().text = "Wins: " + localWins + "\nKills: " + localKills;
         }
     }
 }

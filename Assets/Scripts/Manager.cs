@@ -140,16 +140,16 @@ public class Manager : MonoBehaviour
             switch (i)
             {
                 case 0:
-                    cameraObj.GetComponent<Camera>().rect = new Rect(0, .51f, .485f, .5f);
+                    cameraObj.GetComponent<Camera>().rect = new Rect(0, .5f, .5f, .5f);
                     break;
                 case 1:
-                    cameraObj.GetComponent<Camera>().rect = new Rect(.49f, .51f, .51f, .5f);
+                    cameraObj.GetComponent<Camera>().rect = new Rect(.5f, .5f, .5f, .5f);
                     break;
                 case 2:
-                    cameraObj.GetComponent<Camera>().rect = new Rect(0, 0, .485f, .5f);
+                    cameraObj.GetComponent<Camera>().rect = new Rect(0, 0, .5f, .5f);
                     break;
                 case 3:
-                    cameraObj.GetComponent<Camera>().rect = new Rect(.485f, 0, .52f, .5f);
+                    cameraObj.GetComponent<Camera>().rect = new Rect(.5f, 0, .5f, .5f);
                     break;
             }
         }

@@ -412,6 +412,19 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9f535b344fe3c5e4b87f839857cd5dd8, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &119512626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943466ab374444748a364f9d6c3e2fe2, type: 3}
+  m_Name: (Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  broadcast: 1
+  brain: {fileID: 0}
 --- !u!1001 &157192778
 Prefab:
   m_ObjectHideFlags: 0
@@ -1071,18 +1084,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d063e657ccc7e3c49830e785342e34d6, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &646019577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35813a1be64e144f887d7d5f15b963fa, type: 3}
-  m_Name: (Clone)(Clone)
-  m_EditorClassIdentifier: 
-  brain: {fileID: 753019401}
 --- !u!1 &703806835
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,12 +1182,12 @@ MonoBehaviour:
     - Rotate Right
     actionSpaceType: 0
     stateSpaceType: 1
-  brainType: 2
+  brainType: 0
   CoreBrains:
-  - {fileID: 942869114}
-  - {fileID: 1141803556}
-  - {fileID: 646019577}
-  instanceID: 15720
+  - {fileID: 2103988679}
+  - {fileID: 119512626}
+  - {fileID: 1540193913}
+  instanceID: 36796
 --- !u!1001 &793827861
 Prefab:
   m_ObjectHideFlags: 0
@@ -1482,30 +1483,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4654645515063414, guid: 9f535b344fe3c5e4b87f839857cd5dd8,
     type: 2}
   m_PrefabInternal: {fileID: 899628827}
---- !u!114 &942869114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41e9bda8f3cf1492fa74926a530f6f70, type: 3}
-  m_Name: (Clone)(Clone)
-  m_EditorClassIdentifier: 
-  broadcast: 1
-  continuousPlayerActions: []
-  discretePlayerActions:
-  - key: 48
-    value: 0
-  - key: 49
-    value: 1
-  - key: 50
-    value: 2
-  - key: 51
-    value: 3
-  defaultAction: 0
-  brain: {fileID: 753019401}
 --- !u!1 &943754943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,19 +1835,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4654645515063414, guid: 9f535b344fe3c5e4b87f839857cd5dd8,
     type: 2}
   m_PrefabInternal: {fileID: 1850524920}
---- !u!114 &1141803556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 943466ab374444748a364f9d6c3e2fe2, type: 3}
-  m_Name: (Clone)(Clone)
-  m_EditorClassIdentifier: 
-  broadcast: 1
-  brain: {fileID: 0}
 --- !u!1001 &1234093131
 Prefab:
   m_ObjectHideFlags: 0
@@ -1921,6 +1885,16 @@ Prefab:
       value: 
       objectReference: {fileID: 1508373941869812, guid: 00091c397c3ce524295bd4ce6e2a61a9,
         type: 2}
+    - target: {fileID: 82239452861154862, guid: c6bbb47c1e3b4b04ab5912a450f7ab97,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82239452861154862, guid: c6bbb47c1e3b4b04ab5912a450f7ab97,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c6bbb47c1e3b4b04ab5912a450f7ab97, type: 2}
   m_IsPrefabParent: 0
@@ -2449,6 +2423,18 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9f535b344fe3c5e4b87f839857cd5dd8, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1540193913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35813a1be64e144f887d7d5f15b963fa, type: 3}
+  m_Name: (Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  brain: {fileID: 753019401}
 --- !u!1001 &1561409637
 Prefab:
   m_ObjectHideFlags: 0
@@ -3277,6 +3263,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &2103988679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e9bda8f3cf1492fa74926a530f6f70, type: 3}
+  m_Name: (Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  broadcast: 1
+  continuousPlayerActions: []
+  discretePlayerActions:
+  - key: 48
+    value: 0
+  - key: 49
+    value: 1
+  - key: 50
+    value: 2
+  - key: 51
+    value: 3
+  defaultAction: 0
+  brain: {fileID: 753019401}
 --- !u!1001 &2128569673
 Prefab:
   m_ObjectHideFlags: 0

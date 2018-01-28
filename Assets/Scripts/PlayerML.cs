@@ -9,10 +9,16 @@ public class PlayerML : Agent
     int prevKillCount = 0;
     bool prevIsDead = false;
 
+    [SerializeField]
+    LayerMask mask;
+
     public override void InitializeAgent()
     {
         playerControls = GetComponent<Player>();
         mngr = FindObjectOfType<Manager>();
+        int num = (1 << 8) | (1 << 9) | (1 << 10) | (1 << 11);
+        mask = num;
+        StartCoroutine("Raycast");
     }
 
     public override List<float> CollectState()
@@ -22,7 +28,7 @@ public class PlayerML : Agent
         {
             if (i >= mngr.players.Count)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < 6; j++)
                     state.Add(0f);
 
                 break;
@@ -49,13 +55,21 @@ public class PlayerML : Agent
 
     public override void AgentStep(float[] act)
     {
-        int currKillCount = playerControls.kills;
-        if (currKillCount > prevKillCount)
-            reward += 1.0f;
-
         bool currIsDead = playerControls.dead;
         if (currIsDead != prevIsDead && currIsDead)
+        {
+            //Debug.Log("dfdfd +" + gameObject.name);
             reward += -1.0f;
+        }
+
+        if (!currIsDead)
+        {
+            if ((transform.position.x > -0.8f && transform.position.x < 10.55f) &&
+                (transform.position.z > -0.8f && transform.position.z < 10.75f))
+            {
+                reward += 0.1f;
+            } 
+        }
 
         switch ((int)act[0])
         {
@@ -76,7 +90,19 @@ public class PlayerML : Agent
         }
 
         prevIsDead = currIsDead;
-        prevKillCount = currKillCount;
+    }
+
+    IEnumerator Raycast()
+    {
+        for (; ;)
+        {
+            if (Physics.Raycast(transform.position + Vector3.up, transform.forward, float.MaxValue, mask))
+            {
+                reward += 0.1f;
+            }
+
+            yield return new WaitForSeconds(0.3f);
+        }
     }
 
     public override void AgentReset()

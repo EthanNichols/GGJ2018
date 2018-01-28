@@ -43,6 +43,9 @@ public class Player : MonoBehaviour
     //Animations
     Animator animator;
 
+    public bool IsBlocking { get { return blocking; } }
+    public bool IsPunching { get { return punching; } }
+
     // Use this for initialization
     void Awake()
     {
@@ -55,6 +58,13 @@ public class Player : MonoBehaviour
         cameraDefLocalPos = cameraObj.transform.localPosition;
 
         renderers = GetComponentsInChildren<Renderer>();
+
+        Brain b = FindObjectOfType<Brain>();
+        if (b)
+        {
+            PlayerML agent = gameObject.AddComponent<PlayerML>();
+            agent.GiveBrain(b);
+        }
     }
 
     // Update is called once per frame
@@ -133,7 +143,7 @@ public class Player : MonoBehaviour
     {
         //Get rotation inpute
         if (Input.GetAxis("Player" + playerNum + "Move") < 0) { RotateLeft(); }
-        if (Input.GetAxis("Player" + playerNum + "Move") > 0) { RotateRight(); }
+        else if (Input.GetAxis("Player" + playerNum + "Move") > 0) { RotateRight(); }
 
         if (animationTime <= 0 && recoverTime <= 0)
         {
@@ -191,6 +201,8 @@ public class Player : MonoBehaviour
     /// </summary>
     public void StartPunch()
     {
+        if (animationTime > 0 || recoverTime > 0)
+            return;
         punching = true;
 
         //Reset the timers
@@ -202,6 +214,7 @@ public class Player : MonoBehaviour
     }
     private void Punch()
     {
+
         //Make sure the player isn't blocking and is punching
         if (blocking || !punching) { return; }
 
@@ -210,12 +223,14 @@ public class Player : MonoBehaviour
     }
     public void StartBlock()
     {
+        if (animationTime > 0 || recoverTime > 0)
+            return;
         blocking = true;
 
         //Reset the timers
         animator.SetInteger("State", 2);
         animationTime = animationReset * 1.75f;
-        recoverTime = recoverReset * .75f;
+        recoverTime = recoverReset * .8f;
     }
     private void Block()
     {

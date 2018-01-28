@@ -77,13 +77,26 @@ public class Manager : MonoBehaviour
         if (aliveCount <= 1)
         {
             gameOver = true;
+
+            if (winner)
+            {
+                PlayerML winningAgent = winner.GetComponent<PlayerML>();
+                winningAgent.reward += 1f;
+            }
+
+            foreach (GameObject playerObj in players)
+            {
+                PlayerML agent = playerObj.GetComponent<PlayerML>();
+                if (!agent) return;
+                else agent.done = true;
+            }
         }
     }
 
     private void RespawnPlayers()
     {
         //Reset the player rotation and their camera
-        for(int i = 0; i <players.Count; i++)
+        for (int i = 0; i < players.Count; i++)
         {
             players[i].transform.localRotation = Quaternion.identity;
             Player p = players[i].GetComponent<Player>();

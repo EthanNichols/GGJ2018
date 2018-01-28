@@ -65,6 +65,7 @@ public class GameStateManager : MonoBehaviour{
         if (restartScreenTimer <= 0)
         {
             newState = GameState.game;
+            ConfettiManager.Instance.StopConfetti();
         }
     }
 

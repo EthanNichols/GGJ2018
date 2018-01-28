@@ -911,67 +911,6 @@ MonoBehaviour:
     value: 3
   defaultAction: 1
   brain: {fileID: 753019401}
---- !u!1 &500222348
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 500222350}
-  - component: {fileID: 500222349}
-  m_Layer: 0
-  m_Name: ML Academy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &500222349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 500222348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a33581f31e7a02d429655508061aa252, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSteps: 0
-  frameToSkip: 0
-  waitTime: 0
-  isInference: 1
-  trainingConfiguration:
-    width: 80
-    height: 80
-    qualityLevel: 1
-    timeScale: 100
-    targetFrameRate: -1
-  inferenceConfiguration:
-    width: 1280
-    height: 720
-    qualityLevel: 5
-    timeScale: 1
-    targetFrameRate: 60
-  defaultResetParameters: []
-  done: 0
-  episodeCount: 1
-  currentStep: 0
---- !u!4 &500222350
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 500222348}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 753019400}
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &536125667
 Prefab:
   m_ObjectHideFlags: 0
@@ -1163,65 +1102,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &753019399
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 753019400}
-  - component: {fileID: 753019401}
-  m_Layer: 0
-  m_Name: Brain
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &753019400
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 753019399}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 500222350}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &753019401
+--- !u!114 &753019401 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 753019399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
+  m_PrefabParentObject: {fileID: 114484046939477888, guid: cb3c702b62af59b439060e460c179fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1022505913}
   m_Script: {fileID: 11500000, guid: c676a8ddf5a5f4f64b35e9ed5028679d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  brainParameters:
-    stateSize: 25
-    actionSize: 4
-    memorySize: 0
-    cameraResolutions: []
-    actionDescriptions:
-    - Block
-    - Punch
-    - Rotate Left
-    - Rotate Right
-    actionSpaceType: 0
-    stateSpaceType: 1
-  brainType: 2
-  CoreBrains:
-  - {fileID: 476294449}
-  - {fileID: 1282305864}
-  - {fileID: 1881105369}
-  - {fileID: 345960445}
-  instanceID: 31842
 --- !u!1001 &793827861
 Prefab:
   m_ObjectHideFlags: 0
@@ -1854,6 +1740,68 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 92ecfc362e9920b4eb0ec61f6075e3c2, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &1022505913
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4736848491472802, guid: cb3c702b62af59b439060e460c179fa5, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736848491472802, guid: cb3c702b62af59b439060e460c179fa5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736848491472802, guid: cb3c702b62af59b439060e460c179fa5, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736848491472802, guid: cb3c702b62af59b439060e460c179fa5, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736848491472802, guid: cb3c702b62af59b439060e460c179fa5, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736848491472802, guid: cb3c702b62af59b439060e460c179fa5, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736848491472802, guid: cb3c702b62af59b439060e460c179fa5, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736848491472802, guid: cb3c702b62af59b439060e460c179fa5, type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114484046939477888, guid: cb3c702b62af59b439060e460c179fa5,
+        type: 2}
+      propertyPath: CoreBrains.Array.data[0]
+      value: 
+      objectReference: {fileID: 476294449}
+    - target: {fileID: 114484046939477888, guid: cb3c702b62af59b439060e460c179fa5,
+        type: 2}
+      propertyPath: CoreBrains.Array.data[1]
+      value: 
+      objectReference: {fileID: 1282305864}
+    - target: {fileID: 114484046939477888, guid: cb3c702b62af59b439060e460c179fa5,
+        type: 2}
+      propertyPath: CoreBrains.Array.data[2]
+      value: 
+      objectReference: {fileID: 1881105369}
+    - target: {fileID: 114484046939477888, guid: cb3c702b62af59b439060e460c179fa5,
+        type: 2}
+      propertyPath: CoreBrains.Array.data[3]
+      value: 
+      objectReference: {fileID: 345960445}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: cb3c702b62af59b439060e460c179fa5, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &1083868348 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4755223902039148, guid: 78490330a3f5b954ea53aa31a37e4fa7,
@@ -2127,6 +2075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   restartScreenTimer: 3
+  PlayerCount: 0
   currentState: 0
   newState: 0
 --- !u!4 &1402292204

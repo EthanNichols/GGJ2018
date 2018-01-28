@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
     Animator animator;
     DeathParticleManager deathParticle;
 
+    private bool isML = false;
+
     public bool IsBlocking { get { return blocking; } }
     public bool IsPunching { get { return punching; } }
     public float RecoveryTime { get { return recoverTime; } }
@@ -60,15 +62,18 @@ public class Player : MonoBehaviour
         cameraDefLocalPos = cameraObj.transform.localPosition;
 
         renderers = GetComponentsInChildren<Renderer>();
+        deathParticle = GetComponentInChildren<DeathParticleManager>();
+    }
 
+    public void InitML()
+    {
         Brain b = FindObjectOfType<Brain>();
         if (b)
         {
             PlayerML agent = gameObject.AddComponent<PlayerML>();
             agent.GiveBrain(b);
+            isML = true;
         }
-
-        deathParticle = GetComponentInChildren<DeathParticleManager>();
     }
 
     // Update is called once per frame

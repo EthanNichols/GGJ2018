@@ -110,7 +110,7 @@ public class Manager : MonoBehaviour
         }
 
         //Temp height of player
-        float playerHeight = -0.2756758f;
+        float playerHeight = -0.2919086f;
 
         //Set the player's spawn positions
         players[0].transform.position = new Vector3(mapSize / 5, playerHeight, mapSize / 5);
@@ -127,7 +127,7 @@ public class Manager : MonoBehaviour
             GameObject newPlayer = Instantiate(player);
             newPlayer.GetComponent<Player>().playerNum = (i + 1);
             newPlayer.name = "Player " + (i + 1);
-
+                
             players.Add(newPlayer);
 
             //Get the camera on the player
@@ -140,16 +140,16 @@ public class Manager : MonoBehaviour
             switch (i)
             {
                 case 0:
-                    cameraObj.GetComponent<Camera>().rect = new Rect(0, .5f, .5f, .5f);
+                    cameraObj.GetComponent<Camera>().rect = new Rect(0, .51f, .485f, .5f);
                     break;
                 case 1:
-                    cameraObj.GetComponent<Camera>().rect = new Rect(.5f, .5f, .5f, .5f);
+                    cameraObj.GetComponent<Camera>().rect = new Rect(.49f, .51f, .51f, .5f);
                     break;
                 case 2:
-                    cameraObj.GetComponent<Camera>().rect = new Rect(0, 0, .5f, .5f);
+                    cameraObj.GetComponent<Camera>().rect = new Rect(0, 0, .485f, .5f);
                     break;
                 case 3:
-                    cameraObj.GetComponent<Camera>().rect = new Rect(.5f, 0, .5f, .5f);
+                    cameraObj.GetComponent<Camera>().rect = new Rect(.485f, 0, .52f, .5f);
                     break;
             }
         }

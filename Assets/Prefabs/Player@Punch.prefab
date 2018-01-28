@@ -961,6 +961,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1660665298166608
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4295406425148834}
+  - component: {fileID: 212927904730783380}
+  - component: {fileID: 114679733120375746}
+  m_Layer: 0
+  m_Name: Skull Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1671664523189208
 GameObject:
   m_ObjectHideFlags: 1
@@ -1722,6 +1739,19 @@ Transform:
   m_Father: {fileID: 4259082089567466}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4295406425148834
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1660665298166608}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0.31}
+  m_LocalScale: {x: 0.022917032, y: 0.022917029, z: 0.022917029}
+  m_Children: []
+  m_Father: {fileID: 4313645785322266}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4309380321775994
 Transform:
   m_ObjectHideFlags: 1
@@ -1744,7 +1774,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0.1318, z: -0.0306}
   m_LocalScale: {x: 0.05657998, y: 0.056579955, z: 0.056579955}
-  m_Children: []
+  m_Children:
+  - {fileID: 4295406425148834}
   m_Father: {fileID: 4898526551836610}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2513,7 +2544,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508373941869812}
   m_LocalRotation: {x: -0, y: -0.9696269, z: -0, w: 0.24458897}
-  m_LocalPosition: {x: 8.146195, y: 12.258064, z: 32.022053}
+  m_LocalPosition: {x: 5.923028, y: 17.104235, z: 42.19545}
   m_LocalScale: {x: 16.05035, y: 16.050362, z: 16.050362}
   m_Children:
   - {fileID: 4903315283381966}
@@ -2755,6 +2786,18 @@ MonoBehaviour:
   wrists:
   - {fileID: 4967926941644560}
   - {fileID: 4716699015434808}
+--- !u!114 &114679733120375746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1660665298166608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c7bb1fc4ffcb942bccba7b0f9ac8a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114279691849061162}
 --- !u!124 &124512786548448106
 Behaviour:
   m_ObjectHideFlags: 1
@@ -2843,3 +2886,47 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0017213337, y: 0.0024504084, z: -0.00000019185245}
     m_Extent: {x: 0.08595261, y: 0.026522053, z: 0.057271816}
   m_DirtyAABB: 0
+--- !u!212 &212927904730783380
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1660665298166608}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: cd8740eb929cdc240b51f797781434a2, type: 3}
+  m_Color: {r: 0.58520764, g: 0.58819354, b: 0.64705884, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2.72, y: 3.66}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0

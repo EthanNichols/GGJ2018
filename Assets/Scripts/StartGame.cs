@@ -13,9 +13,15 @@ public class StartGame : MonoBehaviour
         mngr = FindObjectOfType<GameStateManager>();
     }
 
-
-    public void StartTheGame()
+    public void SelectComputers()
     {
+        transform.parent.parent.Find("PlayerSelect").gameObject.SetActive(true);
+    }
+
+    public void StartTheGame(int playerCount)
+    {
+        GameObject.FindGameObjectWithTag("StateManager").GetComponent<GameStateManager>().PlayerCount = playerCount;
+
         if (mngr)
             mngr.newState = GameStateManager.GameState.game;
         SceneManager.LoadScene(1);

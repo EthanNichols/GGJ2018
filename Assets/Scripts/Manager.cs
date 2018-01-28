@@ -24,12 +24,16 @@ public class Manager : MonoBehaviour
     void Start()
     {
         stateManager = GameObject.FindGameObjectWithTag("StateManager").GetComponent<GameStateManager>();
+        stateManager.GetComponent<GameStateManager>().currentState = GameStateManager.GameState.restart;
+        stateManager.GetComponent<GameStateManager>().restartScreenTimer = 7;
+
+        gameOver = true;
 
         CreatePlayers();
         RespawnPlayers();
 
         if (restartScreen)
-            restartScreen.SetActive(false);
+            restartScreen.SetActive(true);
     }
 
     // Update is called once per frame
@@ -125,11 +129,14 @@ public class Manager : MonoBehaviour
         //Reset the player rotation and their camera
         for (int i = 0; i < players.Count; i++)
         {
+            Player p = players[i].GetComponent<Player>();
+
             players[i].transform.localRotation = Quaternion.identity;
             if (i == 0 || i == 2)
                 players[i].transform.Rotate(Vector3.up, i * 45f + 45f);
             else players[i].transform.Rotate(Vector3.up, i * -45f);
-            Player p = players[i].GetComponent<Player>();
+
+            p.rotationAmount = players[i].transform.localRotation.y;
 
             p.ResetCamera(null, i);
             p.Respawn();

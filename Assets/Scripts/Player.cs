@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 
     public int playerNum;
     public bool dead = false;
-    private float rotationAmount = 0;
+    public float rotationAmount = 0;
 
     private GameObject cameraObj;
     private Vector3 cameraDefLocalPos;
@@ -71,6 +71,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver) {
+            transform.LookAt(new Vector3(5, transform.position.y, 5));
+            return;
+        }
+
         //Test for inputes
         InputCommands();
     }
@@ -120,7 +125,6 @@ public class Player : MonoBehaviour
         punching = false;
         blocking = false;
 
-        rotationAmount = 0;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         animationTime = 0;
@@ -188,13 +192,13 @@ public class Player : MonoBehaviour
     {
         //Calc and set the rotation
         rotationAmount -= rotationSpeed * Time.deltaTime;
-        transform.localRotation = Quaternion.Euler(0, rotationAmount, 0);
+        transform.Rotate(new Vector3(0, -rotationSpeed * Time.deltaTime, 0));
     }
     public void RotateRight()
     {
         //Calc and set the rotation
         rotationAmount += rotationSpeed * Time.deltaTime;
-        transform.localRotation = Quaternion.Euler(0, rotationAmount, 0);
+        transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
     }
 
     /// <summary>

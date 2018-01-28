@@ -33,7 +33,7 @@ public class PlayerAudioManager : MonoBehaviour {
         AS.Stop();
         AS.clip = AC_Dash;
         AS.Play();
-        Debug.Log("Dash");
+        //Debug.Log("Dash");
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public class PlayerAudioManager : MonoBehaviour {
         AS.Stop();
         AS.clip = AC_Block;
         AS.Play();
-        Debug.Log("Block");
+        //Debug.Log("Block");
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ public class PlayerAudioManager : MonoBehaviour {
         AS.Stop();
         AS.clip = AC_Hit;
         AS.Play();
-        Debug.Log("Hit");
+        //Debug.Log("Hit");
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ public class PlayerAudioManager : MonoBehaviour {
         AS.Stop();
         AS.clip = AC_Death;
         AS.Play();
-        Debug.Log("Death");
+        //Debug.Log("Death");
     }
 
     /// <summary>
@@ -96,7 +96,7 @@ public class PlayerAudioManager : MonoBehaviour {
         AS.Stop();
         AS.clip = AC_Celebrate;
         AS.Play();
-        Debug.Log("Celebrate");
+        //Debug.Log("Celebrate");
     }
 
     private void PlayBGM()

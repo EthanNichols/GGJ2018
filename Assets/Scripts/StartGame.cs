@@ -28,7 +28,7 @@ public class StartGame : MonoBehaviour
 
     public void SetPlayerNum(int num)
     {
-        Debug.Log(num);
+        //Debug.Log(num);
 
         if (!players[num]) {
             gameObject.GetComponent<Image>().color = new Color(.2f, .8f, .2f);
@@ -46,7 +46,7 @@ public class StartGame : MonoBehaviour
 
         for(int i=0; i<4; i++) {
 
-            Debug.Log(i);
+            //Debug.Log(i);
 
             if (players[i])
             {
@@ -57,7 +57,7 @@ public class StartGame : MonoBehaviour
             }
         }
 
-        Debug.Log(playing);
+        //Debug.Log(playing);
 
         GameObject.FindGameObjectWithTag("StateManager").GetComponent<GameStateManager>().PlayerCount = playing;
 

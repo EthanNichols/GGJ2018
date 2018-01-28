@@ -81,7 +81,8 @@ public class Manager : MonoBehaviour
             if (winner)
             {
                 PlayerML winningAgent = winner.GetComponent<PlayerML>();
-                winningAgent.reward += 1f;
+                if (winningAgent)
+                    winningAgent.reward += 1f;
             }
 
             foreach (GameObject playerObj in players)
@@ -131,7 +132,7 @@ public class Manager : MonoBehaviour
             GameObject cameraObj = newPlayer.transform.Find("Camera").gameObject;
 
             //Make sure there is only one audio listener
-            if (i != 0) { Destroy(cameraObj.GetComponent<AudioListener>()); }
+            //if (i != 0) { Destroy(cameraObj.GetComponent<AudioListener>()); }
 
             //Set the position for the player, and where the camera is viewed
             switch (i)

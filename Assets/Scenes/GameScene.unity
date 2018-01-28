@@ -1742,17 +1742,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114142786326307498, guid: c6bbb47c1e3b4b04ab5912a450f7ab97,
-        type: 2}
-      propertyPath: mapSize
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114142786326307498, guid: c6bbb47c1e3b4b04ab5912a450f7ab97,
-        type: 2}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1508373941869812, guid: 00091c397c3ce524295bd4ce6e2a61a9,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c6bbb47c1e3b4b04ab5912a450f7ab97, type: 2}
   m_IsPrefabParent: 0

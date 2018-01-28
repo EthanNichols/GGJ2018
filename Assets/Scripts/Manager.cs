@@ -110,7 +110,7 @@ public class Manager : MonoBehaviour
         }
 
         //Temp height of player
-        float playerHeight = -0.2756758f;
+        float playerHeight = -0.2919086f;
 
         //Set the player's spawn positions
         players[0].transform.position = new Vector3(mapSize / 5, playerHeight, mapSize / 5);

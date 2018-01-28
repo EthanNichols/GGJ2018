@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     Animator animator;
     DeathParticleManager deathParticle;
 
-    private bool isML = false;
+    public bool isML = false;
 
     public bool IsBlocking { get { return blocking; } }
     public bool IsPunching { get { return punching; } }
@@ -198,12 +198,22 @@ public class Player : MonoBehaviour
     /// </summary>
     public void RotateLeft()
     {
+        if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver)
+        {
+            transform.LookAt(new Vector3(5, transform.position.y, 5));
+            return;
+        }
         //Calc and set the rotation
         rotationAmount -= rotationSpeed * Time.deltaTime;
         transform.Rotate(new Vector3(0, -rotationSpeed * Time.deltaTime, 0));
     }
     public void RotateRight()
     {
+        if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver)
+        {
+            transform.LookAt(new Vector3(5, transform.position.y, 5));
+            return;
+        }
         //Calc and set the rotation
         rotationAmount += rotationSpeed * Time.deltaTime;
         transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
@@ -214,6 +224,11 @@ public class Player : MonoBehaviour
     /// </summary>
     public void StartPunch()
     {
+        if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver)
+        {
+            transform.LookAt(new Vector3(5, transform.position.y, 5));
+            return;
+        }
         if (animationTime > 0 || recoverTime > 0)
             return;
         punching = true;
@@ -236,6 +251,11 @@ public class Player : MonoBehaviour
     }
     public void StartBlock()
     {
+        if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver)
+        {
+            transform.LookAt(new Vector3(5, transform.position.y, 5));
+            return;
+        }
         if (animationTime > 0 || recoverTime > 0)
             return;
         blocking = true;
@@ -281,6 +301,9 @@ public class Player : MonoBehaviour
             }
             else
             {
+                if (dead)
+                    return;
+
                 deathParticle.PlayParticles();
                 if (ml)
                 {

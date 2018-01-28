@@ -174,7 +174,7 @@ public class Manager : MonoBehaviour
                     }
                     break;
                 case 2:
-                    if (i == 2 || i == 3)
+                   if (i == 2 || i == 1)
                     {
                         newPlayer.GetComponent<Player>().InitML();
                     }
@@ -185,8 +185,8 @@ public class Manager : MonoBehaviour
                         newPlayer.GetComponent<Player>().InitML();
                     }
                     break;
-                case 0:
-                    newPlayer.GetComponent<Player>().InitML();
+                case 4:
+                    //newPlayer.GetComponent<Player>().InitML();
                     break;
             }
 

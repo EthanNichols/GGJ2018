@@ -2635,7 +2635,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508373941869812}
   m_LocalRotation: {x: -0, y: -0.9696269, z: -0, w: 0.24458897}
-  m_LocalPosition: {x: 5.9384527, y: -0.34, z: 9.314404}
+  m_LocalPosition: {x: 4.3841825, y: -4.202616, z: 17.867847}
   m_LocalScale: {x: 16.05035, y: 16.050362, z: 16.050362}
   m_Children:
   - {fileID: 4903315283381966}
@@ -2879,6 +2879,7 @@ MonoBehaviour:
   wrists:
   - {fileID: 4967926941644560}
   - {fileID: 4716699015434808}
+  isML: 0
 --- !u!114 &114679733120375746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2891,6 +2892,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 114279691849061162}
+  robotImg: {fileID: 21300000, guid: 07f737c94b4594e41b5685ca04222af5, type: 3}
+  skullImg: {fileID: 21300000, guid: cd8740eb929cdc240b51f797781434a2, type: 3}
 --- !u!114 &114824628220909842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3050,7 +3053,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1695276396
+  randomSeed: -719015483
   InitialModule:
     serializedVersion: 3
     enabled: 1

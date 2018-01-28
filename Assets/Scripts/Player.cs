@@ -45,6 +45,8 @@ public class Player : MonoBehaviour
     Animator animator;
     DeathParticleManager deathParticle;
 
+    public bool isML = false;
+
     public bool IsBlocking { get { return blocking; } }
     public bool IsPunching { get { return punching; } }
     public float RecoveryTime { get { return recoverTime; } }
@@ -61,17 +63,20 @@ public class Player : MonoBehaviour
         cameraDefLocalPos = cameraObj.transform.localPosition;
 
         renderers = GetComponentsInChildren<Renderer>();
+        deathParticle = GetComponentInChildren<DeathParticleManager>();
+        PAM = this.gameObject.GetComponent<PlayerAudioManager>();
 
+    }
+
+    public void InitML()
+    {
         Brain b = FindObjectOfType<Brain>();
         if (b)
         {
             PlayerML agent = gameObject.AddComponent<PlayerML>();
             agent.GiveBrain(b);
+            isML = true;
         }
-
-        deathParticle = GetComponentInChildren<DeathParticleManager>();
-
-        PAM = this.gameObject.GetComponent<PlayerAudioManager>();
     }
 
     // Update is called once per frame
@@ -197,12 +202,22 @@ public class Player : MonoBehaviour
     /// </summary>
     public void RotateLeft()
     {
+        if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver)
+        {
+            transform.LookAt(new Vector3(5, transform.position.y, 5));
+            return;
+        }
         //Calc and set the rotation
         rotationAmount -= rotationSpeed * Time.deltaTime;
         transform.Rotate(new Vector3(0, -rotationSpeed * Time.deltaTime, 0));
     }
     public void RotateRight()
     {
+        if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver)
+        {
+            transform.LookAt(new Vector3(5, transform.position.y, 5));
+            return;
+        }
         //Calc and set the rotation
         rotationAmount += rotationSpeed * Time.deltaTime;
         transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
@@ -213,6 +228,11 @@ public class Player : MonoBehaviour
     /// </summary>
     public void StartPunch()
     {
+        if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver)
+        {
+            transform.LookAt(new Vector3(5, transform.position.y, 5));
+            return;
+        }
         if (animationTime > 0 || recoverTime > 0)
             return;
         punching = true;
@@ -237,6 +257,11 @@ public class Player : MonoBehaviour
     }
     public void StartBlock()
     {
+        if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver)
+        {
+            transform.LookAt(new Vector3(5, transform.position.y, 5));
+            return;
+        }
         if (animationTime > 0 || recoverTime > 0)
             return;
         blocking = true;
@@ -283,6 +308,9 @@ public class Player : MonoBehaviour
             }
             else
             {
+                if (dead)
+                    return;
+
                 deathParticle.PlayParticles();
                 if (ml)
                 {

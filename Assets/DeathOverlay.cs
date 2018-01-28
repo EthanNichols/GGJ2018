@@ -5,11 +5,13 @@ using UnityEngine;
 public class DeathOverlay : MonoBehaviour
 {
     public Player player;
-    private Renderer r;
+    public Sprite robotImg;
+    public Sprite skullImg;
+    private SpriteRenderer r;
     // Use this for initialization
     void Start()
     {
-        r = GetComponent<Renderer>();
+        r = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -19,10 +21,14 @@ public class DeathOverlay : MonoBehaviour
         {
             r.enabled = true;
             gameObject.layer = 0;
+            r.sprite = skullImg;
         }
-        else
+        else if (player.isML)
         {
-            r.enabled = false;
+            r.enabled = true;
+            gameObject.layer = 0;
+            r.sprite = robotImg;
         }
+        else r.enabled = false;
     }
 }

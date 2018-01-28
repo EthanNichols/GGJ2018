@@ -162,10 +162,38 @@ public class Manager : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
+
+
+
             //Create a and set information about the new player
             GameObject newPlayer = Instantiate(player);
             newPlayer.GetComponent<Player>().playerNum = (i + 1);
             newPlayer.name = "Player " + (i + 1);
+            int playerCount = stateManager.PlayerCount;
+            switch (playerCount)
+            {
+                case 3:
+                    if (i == 2)
+                    {
+                        newPlayer.GetComponent<Player>().InitML();
+                    }
+                    break;
+                case 2:
+                   if (i == 2 || i == 1)
+                    {
+                        newPlayer.GetComponent<Player>().InitML();
+                    }
+                    break;
+                case 1:
+                    if (i != 0)
+                    {
+                        newPlayer.GetComponent<Player>().InitML();
+                    }
+                    break;
+                case 4:
+                    //newPlayer.GetComponent<Player>().InitML();
+                    break;
+            }
 
             players.Add(newPlayer);
 

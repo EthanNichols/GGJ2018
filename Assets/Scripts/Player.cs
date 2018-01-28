@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     private GameObject cameraObj;
     private Vector3 cameraDefLocalPos;
     private List<GameObject> extraCameras = new List<GameObject>();
+    private PlayerAudioManager PAM;
 
     //Whether the player is punching ornot
     [SerializeField]
@@ -42,6 +43,9 @@ public class Player : MonoBehaviour
     private Renderer[] renderers;
     //Animations
     Animator animator;
+    DeathParticleManager deathParticle;
+
+    public bool isML = false;
 
     public bool IsBlocking { get { return blocking; } }
     public bool IsPunching { get { return punching; } }
@@ -59,12 +63,19 @@ public class Player : MonoBehaviour
         cameraDefLocalPos = cameraObj.transform.localPosition;
 
         renderers = GetComponentsInChildren<Renderer>();
+        deathParticle = GetComponentInChildren<DeathParticleManager>();
+        PAM = this.gameObject.GetComponent<PlayerAudioManager>();
 
+    }
+
+    public void InitML()
+    {
         Brain b = FindObjectOfType<Brain>();
         if (b)
         {
             PlayerML agent = gameObject.AddComponent<PlayerML>();
             agent.GiveBrain(b);
+            isML = true;
         }
     }
 
@@ -72,7 +83,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver) {
+            //PAM.PlayDeath();
             transform.LookAt(new Vector3(5, transform.position.y, 5));
+            animator.SetInteger("State", 0); //Resets player to idle
+
             return;
         }
 
@@ -190,12 +204,22 @@ public class Player : MonoBehaviour
     /// </summary>
     public void RotateLeft()
     {
+        if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver)
+        {
+            transform.LookAt(new Vector3(5, transform.position.y, 5));
+            return;
+        }
         //Calc and set the rotation
         rotationAmount -= rotationSpeed * Time.deltaTime;
         transform.Rotate(new Vector3(0, -rotationSpeed * Time.deltaTime, 0));
     }
     public void RotateRight()
     {
+        if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver)
+        {
+            transform.LookAt(new Vector3(5, transform.position.y, 5));
+            return;
+        }
         //Calc and set the rotation
         rotationAmount += rotationSpeed * Time.deltaTime;
         transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
@@ -206,6 +230,11 @@ public class Player : MonoBehaviour
     /// </summary>
     public void StartPunch()
     {
+        if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver)
+        {
+            transform.LookAt(new Vector3(5, transform.position.y, 5));
+            return;
+        }
         if (animationTime > 0 || recoverTime > 0)
             return;
         punching = true;
@@ -216,6 +245,9 @@ public class Player : MonoBehaviour
 
         GetComponent<Rigidbody>().velocity = transform.forward * punchForce;
         animator.SetInteger("State", 1);
+
+        PAM.PlayDash();
+
     }
     private void Punch()
     {
@@ -225,9 +257,15 @@ public class Player : MonoBehaviour
 
         GetComponent<Rigidbody>().velocity = transform.forward * punchForce;
         animator.SetInteger("State", 1);
+        
     }
     public void StartBlock()
     {
+        if (dead || GameObject.Find("Manager").GetComponent<Manager>().gameOver)
+        {
+            transform.LookAt(new Vector3(5, transform.position.y, 5));
+            return;
+        }
         if (animationTime > 0 || recoverTime > 0)
             return;
         blocking = true;
@@ -270,13 +308,19 @@ public class Player : MonoBehaviour
                 otherPlayer.punching = false;
 
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
+                PAM.PlayBlock();
             }
             else
             {
+                if (dead)
+                    return;
+
+                deathParticle.PlayParticles();
                 if (ml)
                 {
                     //ml.reward -= 0.8f;
                 }
+
 
                 //Increase the amount of kills the player has
                 col.gameObject.GetComponent<Player>().kills++;
@@ -284,6 +328,8 @@ public class Player : MonoBehaviour
                 transform.position += Vector3.down * 10;
                 ResetCamera(col.gameObject, -1);
                 dead = true;
+                otherPlayer.PAM.PlayHit();
+                PAM.PlayDeath();
             }
         }
     }

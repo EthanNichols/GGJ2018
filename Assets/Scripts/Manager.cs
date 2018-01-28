@@ -19,6 +19,7 @@ public class Manager : MonoBehaviour
 
     private GameObject winner;
     private GameStateManager stateManager;
+    private PlayerAudioManager PAM;
 
     // Use this for initialization
     void Start()
@@ -34,6 +35,8 @@ public class Manager : MonoBehaviour
 
         if (restartScreen)
             restartScreen.SetActive(true);
+
+        PAM = players[0].GetComponent<PlayerAudioManager>();
     }
 
     // Update is called once per frame
@@ -50,6 +53,7 @@ public class Manager : MonoBehaviour
             if (winner)
             {
                 winner.GetComponent<Player>().wins++;
+                PAM.PlayCelebrate();
             }
         }
 
@@ -62,6 +66,7 @@ public class Manager : MonoBehaviour
             {
                 stateManager.newState = GameStateManager.GameState.mainMenu;
                 SceneManager.LoadScene(0);
+
             }
             RespawnPlayers();
             gameOver = false;
@@ -157,10 +162,38 @@ public class Manager : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
+
+
+
             //Create a and set information about the new player
             GameObject newPlayer = Instantiate(player);
             newPlayer.GetComponent<Player>().playerNum = (i + 1);
             newPlayer.name = "Player " + (i + 1);
+            int playerCount = stateManager.PlayerCount;
+            switch (playerCount)
+            {
+                case 3:
+                    if (i == 2)
+                    {
+                        newPlayer.GetComponent<Player>().InitML();
+                    }
+                    break;
+                case 2:
+                   if (i == 2 || i == 1)
+                    {
+                        newPlayer.GetComponent<Player>().InitML();
+                    }
+                    break;
+                case 1:
+                    if (i != 0)
+                    {
+                        newPlayer.GetComponent<Player>().InitML();
+                    }
+                    break;
+                case 4:
+                    //newPlayer.GetComponent<Player>().InitML();
+                    break;
+            }
 
             players.Add(newPlayer);
 

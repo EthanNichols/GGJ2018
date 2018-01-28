@@ -169,31 +169,36 @@ public class Manager : MonoBehaviour
             GameObject newPlayer = Instantiate(player);
             newPlayer.GetComponent<Player>().playerNum = (i + 1);
             newPlayer.name = "Player " + (i + 1);
-            int playerCount = stateManager.PlayerCount;
-            switch (playerCount)
+            if (stateManager.PlayerCount.Length > i)
             {
-                case 3:
-                    if (i == 2)
-                    {
-                        newPlayer.GetComponent<Player>().InitML();
-                    }
-                    break;
-                case 2:
-                   if (i == 2 || i == 1)
-                    {
-                        newPlayer.GetComponent<Player>().InitML();
-                    }
-                    break;
-                case 1:
-                    if (i != 0)
-                    {
-                        newPlayer.GetComponent<Player>().InitML();
-                    }
-                    break;
-                case 4:
-                    //newPlayer.GetComponent<Player>().InitML();
-                    break;
+                int isRobot = stateManager.PlayerCount[i];
+                if (isRobot == 1)
+                    newPlayer.GetComponent<Player>().InitML();
             }
+
+            //switch (playerCount)
+            //{
+            //    case 3:
+            //        if (i == 2)
+            //        {
+            //            newPlayer.GetComponent<Player>().InitML();
+            //        }
+            //        break;
+            //    case 2:
+            //       if (i == 2 || i == 1)
+            //        {
+            //            newPlayer.GetComponent<Player>().InitML();
+            //        }
+            //        break;
+            //    case 1:
+            //        if (i != 0)
+            //        {
+            //        }
+            //        break;
+            //    case 4:
+            //        //newPlayer.GetComponent<Player>().InitML();
+            //        break;
+            //}
 
             players.Add(newPlayer);
 

@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
 
     public bool IsBlocking { get { return blocking; } }
     public bool IsPunching { get { return punching; } }
+    public float RecoveryTime { get { return recoverTime; } }
 
     // Use this for initialization
     void Awake()
@@ -248,25 +249,38 @@ public class Player : MonoBehaviour
         //If a player doesn't hit you ignore it
         if (!col.gameObject.name.Contains("Player")) { return; }
 
-        //If the 
-        if (blocking)
-        {
-            col.gameObject.GetComponent<Player>().recoverTime = recoverReset * 3;
-            col.gameObject.GetComponent<Player>().animationTime = 0;
-
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
-            return;
-        }
-
+        Player otherPlayer = col.gameObject.GetComponent<Player>();
         //If the player that hit you is punching teleport you down
-        if (col.gameObject.GetComponent<Player>().punching)
+        if (otherPlayer.punching)
         {
-            //Increase the amount of kills the player has
-            col.gameObject.GetComponent<Player>().kills++;
+            PlayerML ml = GetComponent<PlayerML>();
+            if (blocking)
+            {
+                if (ml)
+                {
+                    ml.reward += 0.8f;
+                }
 
-            transform.position += Vector3.down * 10;
-            ResetCamera(col.gameObject, -1);
-            dead = true;
+                otherPlayer.recoverTime = recoverReset * 3;
+                otherPlayer.animationTime = 0;
+                otherPlayer.punching = false;
+
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+            }
+            else
+            {
+                if (ml)
+                {
+                    ml.reward -= 1.0f;
+                }
+
+                //Increase the amount of kills the player has
+                col.gameObject.GetComponent<Player>().kills++;
+
+                transform.position += Vector3.down * 10;
+                ResetCamera(col.gameObject, -1);
+                dead = true;
+            }
         }
     }
 }

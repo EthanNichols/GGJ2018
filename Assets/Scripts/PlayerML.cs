@@ -6,8 +6,6 @@ public class PlayerML : Agent
 {
     Player playerControls;
     Manager mngr;
-    int prevKillCount = 0;
-    bool prevIsDead = false;
 
     [SerializeField]
     LayerMask mask;
@@ -50,33 +48,35 @@ public class PlayerML : Agent
                 state.Add(0);
             else state.Add(1);
         }
+
+        state.Add(playerControls.RecoveryTime);
         return state;
     }
 
     public override void AgentStep(float[] act)
     {
         bool currIsDead = playerControls.dead;
-        if (currIsDead != prevIsDead && currIsDead)
-        {
-            //Debug.Log("dfdfd +" + gameObject.name);
-            reward += -1.0f;
-        }
 
         if (!currIsDead)
         {
             if ((transform.position.x > -0.8f && transform.position.x < 10.55f) &&
                 (transform.position.z > -0.8f && transform.position.z < 10.75f))
             {
-                reward += 0.1f;
-            } 
+                reward += 0.2f;
+            }
+            else reward -= 0.001f;
         }
 
         switch ((int)act[0])
         {
             case 0:
+                if (playerControls.RecoveryTime > 0f)
+                    reward += 0.001f;
                 playerControls.StartBlock();
                 break;
             case 1:
+                if (playerControls.RecoveryTime > 0f)
+                    reward += 0.002f;
                 playerControls.StartPunch();
                 break;
             case 2:
@@ -88,8 +88,6 @@ public class PlayerML : Agent
             default:
                 break;
         }
-
-        prevIsDead = currIsDead;
     }
 
     IEnumerator Raycast()
@@ -98,7 +96,7 @@ public class PlayerML : Agent
         {
             if (Physics.Raycast(transform.position + Vector3.up, transform.forward, float.MaxValue, mask))
             {
-                reward += 0.1f;
+                reward += 0.3f;
             }
 
             yield return new WaitForSeconds(0.3f);

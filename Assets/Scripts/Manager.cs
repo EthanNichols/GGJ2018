@@ -59,6 +59,8 @@ public class Manager : MonoBehaviour
 
     private void CheckGameOver()
     {
+        if (gameOver) return;
+
         //The amount of players alive
         int aliveCount = 0;
         winner = null;
@@ -82,7 +84,7 @@ public class Manager : MonoBehaviour
             {
                 PlayerML winningAgent = winner.GetComponent<PlayerML>();
                 if (winningAgent)
-                    winningAgent.reward += 1f;
+                    winningAgent.reward += 1.0f;
             }
 
             foreach (GameObject playerObj in players)

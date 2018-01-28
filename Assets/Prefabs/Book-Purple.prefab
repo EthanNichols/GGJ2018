@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4065416519941598}
   - component: {fileID: 33652941303881480}
   - component: {fileID: 23158762916804188}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Book-Purple
   m_TagString: Untagged
   m_Icon: {fileID: 0}

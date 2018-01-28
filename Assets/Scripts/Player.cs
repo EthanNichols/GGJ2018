@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     private Renderer[] renderers;
     //Animations
     Animator animator;
+    DeathParticleManager deathParticle;
 
     public bool IsBlocking { get { return blocking; } }
     public bool IsPunching { get { return punching; } }
@@ -66,6 +67,8 @@ public class Player : MonoBehaviour
             PlayerML agent = gameObject.AddComponent<PlayerML>();
             agent.GiveBrain(b);
         }
+
+        deathParticle = GetComponentInChildren<DeathParticleManager>();
     }
 
     // Update is called once per frame
@@ -269,6 +272,7 @@ public class Player : MonoBehaviour
             }
             else
             {
+                deathParticle.PlayParticles();
                 if (ml)
                 {
                     //ml.reward -= 0.8f;

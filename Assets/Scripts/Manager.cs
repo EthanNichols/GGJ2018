@@ -117,6 +117,9 @@ public class Manager : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             players[i].transform.localRotation = Quaternion.identity;
+            if (i == 0 || i == 2)
+                players[i].transform.Rotate(Vector3.up, i * 45f + 45f);
+            else players[i].transform.Rotate(Vector3.up, i * -45f);
             Player p = players[i].GetComponent<Player>();
 
             p.ResetCamera(null, i);
